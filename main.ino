@@ -1,4 +1,5 @@
 #include "motor.h"
+#include "waterPump.h"
 
 #define MAINLOOP_TIME_INCREMENT_MS 10
 
