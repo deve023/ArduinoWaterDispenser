@@ -14,7 +14,7 @@ typedef enum {
     DEBOUNCE_TOGGLE_BUTTON
 } WaterPumpStatus_t;
 
-static waterPumpStatus_t waterPumpStatus;
+static WaterPumpStatus_t waterPumpStatus;
 static int timeIncrement_ms;
 
 void waterPumpInit(int dt)
