@@ -7,11 +7,12 @@ bool blockWaterFlow = false;
 
 void setup() {
     motorInit(MAINLOOP_TIME_INCREMENT_MS);
+    waterPumpInit(MAINLOOP_TIME_INCREMENT_MS);
 }
 
 void loop() {
     blockWaterFlow = motorUpdate();
-    // #TODO: updateWaterPump(blockWaterFlow);
+    // #TODO: waterPumpUpdate(blockWaterFlow);
     
     delay(MAINLOOP_TIME_INCREMENT_MS);
 }

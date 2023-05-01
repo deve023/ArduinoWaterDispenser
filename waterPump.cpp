@@ -27,7 +27,7 @@ void waterPumpInit(int dt)
     timeIncrement_ms = dt;
 }
 
-void motorUpdate(bool flowBlock)
+void waterPumpUpdate(bool flowBlock)
 {
     // #TODO: Implement.
     static int accumulatedHoldButtonTime = 0;

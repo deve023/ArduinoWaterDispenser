@@ -1,5 +1,4 @@
 #include "motor.h"
-#include <string.h>
 
 #define PRESSED LOW // PULL UP
 #define NOT_PRESSED HIGH // PULL UP
@@ -32,7 +31,7 @@ void motorInit(int dt)
 
     timeIncrement_ms = dt;
 
-    Serial.begin(9600);
+    Serial.begin(9600); // Debug
 }
 
 bool motorUpdate()
@@ -51,7 +50,7 @@ bool motorUpdate()
                 motorStatus = MOTOR_DEBOUNCE_UP;
             }
             // #TODO: Update output pins so motor does not move.
-            strcpy(statusInfo+14, "IN_PLACE");
+            strcpy(statusInfo+14, "IN_PLACE"); // Debug
             break;
         case MOTOR_GOING_UP:
             if(digitalRead(BUTTON_UP) == NOT_PRESSED) {
@@ -59,7 +58,7 @@ bool motorUpdate()
                 motorStatus = MOTOR_DEBOUNCE_UP;
             }
             // #TODO: Update output pins so motor goes up.
-            strcpy(statusInfo+14, "GOING_UP");
+            strcpy(statusInfo+14, "GOING_UP"); // Debug
             break;
         case MOTOR_GOING_DOWN:
             if(digitalRead(BUTTON_DOWN) == NOT_PRESSED) {
@@ -67,7 +66,7 @@ bool motorUpdate()
                 motorStatus = MOTOR_DEBOUNCE_DOWN;
             }
             // #TODO: Update output pins so motor goes down.
-            strcpy(statusInfo+14, "GOING_DOWN");
+            strcpy(statusInfo+14, "GOING_DOWN"); // Debug
             break;  
         case MOTOR_DEBOUNCE_UP:
             if(accumulatedDebounceMotorButtonTime >= DEBOUNCE_MOTOR_BUTTON_TIME_MS) {
@@ -90,7 +89,7 @@ bool motorUpdate()
             } else {
                 accumulatedDebounceMotorButtonTime += timeIncrement_ms;
             }
-            strcpy(statusInfo+14, "DEBOUNCE_UP");
+            strcpy(statusInfo+14, "DEBOUNCE_UP"); // Debug
             break;
         case MOTOR_DEBOUNCE_DOWN:
             if(accumulatedDebounceMotorButtonTime >= DEBOUNCE_MOTOR_BUTTON_TIME_MS) {
@@ -113,7 +112,7 @@ bool motorUpdate()
             } else {
                 accumulatedDebounceMotorButtonTime += timeIncrement_ms;
             }
-            strcpy(statusInfo+14, "DEBOUNCE_UP");
+            strcpy(statusInfo+14, "DEBOUNCE_UP"); // Debug
             break;
         default:
             motorStatus = MOTOR_IN_PLACE;
