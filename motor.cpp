@@ -73,7 +73,7 @@ bool motorUpdate()
 
     switch(motorStatus) {
         case MOTOR_IN_PLACE:
-            if(digitalRead(BUTTON_DOWN) == PRESSED) { // #TODO: if(button down pressed)
+            if(digitalRead(BUTTON_DOWN) == PRESSED) {
                 buttonDownTentativePressed = true;
                 motorStatus = MOTOR_DEBOUNCE_DOWN;
             } else if(digitalRead(BUTTON_UP) == PRESSED) {
@@ -122,7 +122,7 @@ bool motorUpdate()
         case MOTOR_DEBOUNCE_DOWN:
             if(accumulatedDebounceMotorButtonTime >= DEBOUNCE_MOTOR_BUTTON_TIME_MS) {
                 if(buttonDownTentativePressed) {
-                    if(digitalRead(BUTTON_DOWN) == PRESSED) // #TODO: if(button down pressed)
+                    if(digitalRead(BUTTON_DOWN) == PRESSED)
                         motorStatus = MOTOR_GOING_DOWN;
                     else {
                         motorStatus = MOTOR_IN_PLACE;
