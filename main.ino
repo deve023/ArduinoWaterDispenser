@@ -1,7 +1,7 @@
 //=====[Libraries]=============================================================
 
-#include "motor.h"
-#include "waterPump.h"
+#include ".\src\Motor\motor.h"
+#include ".\src\WaterPump\waterPump.h"
 
 //=====[Declaration of public defines]=========================================
 
