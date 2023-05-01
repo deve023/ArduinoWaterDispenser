@@ -28,7 +28,7 @@ typedef enum {
 
 static MotorStatus_t motorStatus;
 static int timeIncrement_ms;
-static char statusInfo[28] = "Motor Status: "; //pos 14
+static char statusInfo[28] = "Motor Status: "; // Insert status in position: 14
 
 //=====[Declarations (prototypes) of private functions]========================
 
@@ -43,6 +43,12 @@ static void goUp();
  *
  */
 static void goDown();
+
+/**
+ *  @brief Makes the tray stop moving.
+ *
+ */
+static void standStill();
 
 //=====[Implementations of public functions]===================================
 
@@ -74,8 +80,7 @@ bool motorUpdate()
                 buttonUpTentativePressed = true;
                 motorStatus = MOTOR_DEBOUNCE_UP;
             }
-            // #TODO: Update output pins so motor does not move.
-            strcpy(statusInfo+14, "IN_PLACE"); // Debug
+            standStill();
             break;
         case MOTOR_GOING_UP:
             if(digitalRead(BUTTON_UP) == NOT_PRESSED) {
@@ -162,4 +167,11 @@ static void goDown()
 {
     // #TODO: Update output pins so motor goes down.
     strcpy(statusInfo+14, "GOING_DOWN"); // Debug
+}
+
+static void standStill()
+{
+
+    // #TODO: Update output pins so motor does not move.
+    strcpy(statusInfo+14, "IN_PLACE"); // Debug
 }
