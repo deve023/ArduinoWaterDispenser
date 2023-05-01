@@ -2,9 +2,9 @@
 
 #define PRESSED LOW // PULL UP
 #define NOT_PRESSED HIGH // PULL UP
-#define BUTTON_UP 4 // PULL UP
-#define BUTTON_DOWN 5 // PULL UP
-#define DRIVER_ENABLE_PIN 6
+#define BUTTON_UP 7 // PULL UP
+#define BUTTON_DOWN 8 // PULL UP
+#define DRIVER_ENABLE_PIN 9
 #define DEBOUNCE_MOTOR_BUTTON_TIME_MS 40
 
 typedef enum {
@@ -18,6 +18,19 @@ typedef enum {
 static MotorStatus_t motorStatus;
 static int timeIncrement_ms;
 static char statusInfo[28] = "Motor Status: "; //pos 14
+
+/**
+ *  @brief Makes the tray move upwards.
+ *
+ */
+static void goUp();
+
+/**
+ *  @brief Makes the tray move upwards.
+ *
+ */
+static void goDown();
+
 
 void motorInit(int dt)
 {
@@ -57,16 +70,14 @@ bool motorUpdate()
                 buttonUpTentativePressed = false;
                 motorStatus = MOTOR_DEBOUNCE_UP;
             }
-            // #TODO: Update output pins so motor goes up.
-            strcpy(statusInfo+14, "GOING_UP"); // Debug
+            goUp();
             break;
         case MOTOR_GOING_DOWN:
             if(digitalRead(BUTTON_DOWN) == NOT_PRESSED) {
                 buttonDownTentativePressed = false;
                 motorStatus = MOTOR_DEBOUNCE_DOWN;
             }
-            // #TODO: Update output pins so motor goes down.
-            strcpy(statusInfo+14, "GOING_DOWN"); // Debug
+            goDown();
             break;  
         case MOTOR_DEBOUNCE_UP:
             if(accumulatedDebounceMotorButtonTime >= DEBOUNCE_MOTOR_BUTTON_TIME_MS) {
@@ -125,4 +136,16 @@ bool motorUpdate()
     if( motorStatus == MOTOR_GOING_UP || motorStatus == MOTOR_GOING_DOWN)
         return true;
     return false;
+}
+
+static void goUp()
+{
+    // #TODO: Update output pins so motor goes up.
+    strcpy(statusInfo+14, "GOING_UP"); // Debug
+}
+
+static void goDown()
+{
+    // #TODO: Update output pins so motor goes down.
+    strcpy(statusInfo+14, "GOING_DOWN"); // Debug
 }
