@@ -1,11 +1,20 @@
+//=====[Libraries]=============================================================
+
 #include "motor.h"
+
+#include <Arduino.h>
+
+//=====[Declaration of private defines]========================================
 
 #define PRESSED LOW // PULL UP
 #define NOT_PRESSED HIGH // PULL UP
-#define BUTTON_UP 7 // PULL UP
-#define BUTTON_DOWN 8 // PULL UP
-#define DRIVER_ENABLE_PIN 9
+#define BUTTON_UP 6 // PULL UP
+#define BUTTON_DOWN 7 // PULL UP
+#define DRIVER_ENABLE_PIN 8
 #define DEBOUNCE_MOTOR_BUTTON_TIME_MS 40
+#define MOTOR_RUNNING_SPEED 150
+
+//=====[Declaration of private data types]=====================================
 
 typedef enum {
     MOTOR_IN_PLACE,
@@ -15,9 +24,13 @@ typedef enum {
     MOTOR_DEBOUNCE_DOWN
 } MotorStatus_t;
 
+//=====[Declaration and initialization of private global variables]============
+
 static MotorStatus_t motorStatus;
 static int timeIncrement_ms;
 static char statusInfo[28] = "Motor Status: "; //pos 14
+
+//=====[Declarations (prototypes) of private functions]========================
 
 /**
  *  @brief Makes the tray move upwards.
@@ -31,6 +44,7 @@ static void goUp();
  */
 static void goDown();
 
+//=====[Implementations of public functions]===================================
 
 void motorInit(int dt)
 {
@@ -43,8 +57,6 @@ void motorInit(int dt)
     motorStatus = MOTOR_IN_PLACE;
 
     timeIncrement_ms = dt;
-
-    Serial.begin(9600); // Debug
 }
 
 bool motorUpdate()
@@ -123,7 +135,7 @@ bool motorUpdate()
             } else {
                 accumulatedDebounceMotorButtonTime += timeIncrement_ms;
             }
-            strcpy(statusInfo+14, "DEBOUNCE_UP"); // Debug
+            strcpy(statusInfo+14, "DEBOUNCE_DOWN"); // Debug
             break;
         default:
             motorStatus = MOTOR_IN_PLACE;
@@ -137,6 +149,8 @@ bool motorUpdate()
         return true;
     return false;
 }
+
+//=====[Implementations of private functions]==================================
 
 static void goUp()
 {

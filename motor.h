@@ -1,3 +1,5 @@
+//=====[#include guards - begin]===============================================
+
 #ifndef _MOTOR_H_
 #define _MOTOR_H_
 
@@ -6,9 +8,7 @@
     Pinout.
 */
 
-#include <Arduino.h>
-
-#define MOTOR_RUNNING_SPEED 150
+//=====[Declarations (prototypes) of public functions]=========================
 
 /**
  *  @brief Initialices the motors, divers and related pins.
@@ -21,5 +21,7 @@ void motorInit(int dt);
  *  @return Boolean indicating whether the motors are in motion or not.
  */
 bool motorUpdate();
+
+//=====[#include guards - end]=================================================
 
 #endif // _MOTOR_H_

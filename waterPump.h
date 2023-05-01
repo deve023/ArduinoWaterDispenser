@@ -1,3 +1,5 @@
+//=====[#include guards - begin]===============================================
+
 #ifndef _WATER_PUMP_H_
 #define _WATER_PUMP_H_
 
@@ -6,7 +8,7 @@
     Pinout.
 */
 
-#include <Arduino.h>
+//=====[Declarations (prototypes) of public functions]=========================
 
 /**
  *  @brief Initialices the water pump and related pins.
@@ -15,9 +17,15 @@
 void waterPumpInit(int dt);
 
 /**
- *  @brief Updates the water pump according to input pins and flowBlock if activated.
- *  @param[in] flowBlock Boolean indicating whether the motors are in motion or not.
+ *  @brief Updates the water pump according to input pins
+ * and flowBlock if activated.
+ *  @param[in] flowBlock Boolean indicating whether the
+ * water flow should be activated or not due to system
+ * interaction.
+ * @return Boolean indicating if the water is flowing.
  */
-void waterPumpUpdate(bool flowBlock);
+bool waterPumpUpdate(bool flowBlock);
+
+//=====[#include guards - end]=================================================
 
 #endif //_WATER_PUMP_H_
