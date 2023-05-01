@@ -1,6 +1,7 @@
 //=====[Libraries]=============================================================
 
 #include "userInterface.h"
+#include "..\Display\display.h"
 
 #include <Arduino.h>
 
@@ -14,7 +15,7 @@
 
 //=====[Implementations of public functions]===================================
 
-void displayInit()
+void userInterfaceInit()
 {
     
 }
