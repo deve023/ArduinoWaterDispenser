@@ -14,7 +14,13 @@
  *  @brief Initialices the modules and related pins.
  *  
  */
-void userInterfaceInit();
+void userInterfaceInit(int dt);
+
+/**
+ *  @brief Initialices updates the modules related to the user interface.
+ *  
+ */
+void userInterfaceUpdate();
 
 //=====[#include guards - end]=================================================
 
