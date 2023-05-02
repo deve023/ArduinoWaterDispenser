@@ -1,3 +1,13 @@
+/*! @mainpage Arduino Water Dispenser 
+ * @date Monday, May 1, 2023
+ * @authors Agustin de Vedia
+ *
+ * @file main.ino Main program script for Arduino.
+ * Refer to src\ for the implementation of the modules.
+ *
+ * @note Program is designed to run in an Arduino Nano.
+ */
+
 //=====[Libraries]=============================================================
 
 #include ".\src\Motor\motor.h"
@@ -6,15 +16,18 @@
 
 //=====[Declaration of public defines]=========================================
 
-#define MAINLOOP_TIME_INCREMENT_MS 10
+#define MAINLOOP_TIME_INCREMENT_MS 10 ///< Time interval to update modules.
 
 //=====[Declaration of public global variables]================================
 
-bool blockWaterFlow = false;
-bool waterFlowing = false;
+bool blockWaterFlow = false; ///< Boolean to indicate if the flow of water should be suspended.
 
 //=====[Main setup function, the program entry point after power on or reset]==
 
+/**
+ * @brief Main setup function.
+ * 
+ */
 void setup() {
     motorInit(MAINLOOP_TIME_INCREMENT_MS);
     waterPumpInit(MAINLOOP_TIME_INCREMENT_MS);
@@ -25,9 +38,13 @@ void setup() {
 
 //=====[Main loop function, the program entry point after power on or reset]===
 
+/**
+ * @brief Mainloop.
+ * 
+ */
 void loop() {
     blockWaterFlow = motorUpdate();
-    waterFlowing = waterPumpUpdate(blockWaterFlow);
+    waterPumpUpdate(blockWaterFlow);
     
     userInterfaceUpdate();
     

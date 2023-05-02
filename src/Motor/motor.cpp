@@ -155,6 +155,23 @@ bool motorUpdate()
     return false;
 }
 
+bool isTrayInPlace()
+{
+    return motorStatus == MOTOR_IN_PLACE;
+}
+
+
+bool isTrayMovingUp()
+{
+    return motorStatus == MOTOR_GOING_UP;
+}
+
+
+bool isTrayMovingDown()
+{
+    return motorStatus == MOTOR_GOING_DOWN;
+}
+
 //=====[Implementations of private functions]==================================
 
 static void goUp()

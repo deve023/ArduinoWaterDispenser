@@ -26,6 +26,14 @@ void waterPumpInit(int dt);
  */
 bool waterPumpUpdate(bool flowBlock);
 
+/**
+ * @brief Return Boolean indicating water flow.
+ * 
+ * @return true if water is flowing.
+ * @return false false if water is not flowing.
+ */
+bool isWaterFlowing();
+
 //=====[#include guards - end]=================================================
 
 #endif //_WATER_PUMP_H_

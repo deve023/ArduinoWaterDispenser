@@ -93,6 +93,11 @@ bool waterPumpUpdate(bool flowBlock)
     return waterFlowing;
 }
 
+bool isWaterFlowing()
+{
+    return waterFlowing;
+}
+
 //=====[Implementations of private functions]==================================
 
 static void startFlow()

@@ -1,6 +1,8 @@
 //=====[Libraries]=============================================================
 
 #include "userInterface.h"
+#include "..\Motor\motor.h"
+#include "..\WaterPump\waterPump.h"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -12,7 +14,6 @@
 #define I2C_ADDR 0x3F // Check with I2C Scanner
 #define I2C_SDA_PIN 18 // A4 pin
 #define I2C_SCL_PIN 19 // A5 pin
-
 
 //=====[Declaration of private data types]=====================================
 
@@ -59,7 +60,7 @@ static void userInterfaceDisplayInit(int dt)
     lcd.backlight();
 
     lcd.setCursor(0,0);
-    lcd.print("Water flowing: ");
+    lcd.print("Water ");
 
     lcd.setCursor(0,1);
     lcd.print("Tray ");
@@ -73,18 +74,27 @@ static void userInterfaceDisplayInit(int dt)
 
 static void userInterfaceDisplayUpdate()
 {
-    // #TODO: Implement how to know the info to update.
     static int accumulatedDisplayTime = 0;
 
     if(accumulatedDisplayTime >= DISPLAY_REFRESH_TIME_MS) {
         accumulatedDisplayTime = 0;
 
-        lcd.setCursor(15,0);
-        lcd.print("No."); // Or yes depending on water flow.
+        lcd.setCursor(6,0);
+        if(isWaterFlowing())
+            lcd.print("flowing.");
+        else
+            lcd.print("not flowing.");
+        
         lcd.setCursor(5,1);
-        lcd.print("standing still."); // Or moving up. / moving down.
+        if(isTrayInPlace())
+            lcd.print("standing still.");
+        else if (isTrayMovingUp())
+            lcd.print("moving up.");
+        else if(isTrayMovingDown())
+            lcd.print("moving down.");
 
         /*
+        * #TODO:
         *  Which position the tray is on.
         * Only update if tray standing still. 
         * Put X if the position is not recorded.
@@ -92,7 +102,7 @@ static void userInterfaceDisplayUpdate()
         lcd.setCursor(0,2);
         lcd.print("Position X");
         
-        // Date & Time - Update
+        // #TODO: Date & Time - Update
         lcd.setCursor(3,0);
         lcd.print("20:55");
         lcd.setCursor(3,12);
