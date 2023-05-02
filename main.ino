@@ -2,6 +2,7 @@
 
 #include ".\src\Motor\motor.h"
 #include ".\src\WaterPump\waterPump.h"
+#include ".\src\UserInterface\userInterface.h"
 
 //=====[Declaration of public defines]=========================================
 
@@ -17,6 +18,7 @@ bool waterFlowing = false;
 void setup() {
     motorInit(MAINLOOP_TIME_INCREMENT_MS);
     waterPumpInit(MAINLOOP_TIME_INCREMENT_MS);
+    userInterfaceInit(MAINLOOP_TIME_INCREMENT_MS);
 
     Serial.begin(9600); // Debug
 }
@@ -26,6 +28,8 @@ void setup() {
 void loop() {
     blockWaterFlow = motorUpdate();
     waterFlowing = waterPumpUpdate(blockWaterFlow);
+    
+    userInterfaceUpdate();
     
     delay(MAINLOOP_TIME_INCREMENT_MS);
 }
