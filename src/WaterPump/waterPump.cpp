@@ -8,10 +8,9 @@
 
 #define PRESSED LOW // PULL UP
 #define NOT_PRESSED HIGH // PULL UP
-#define BUTTON_HOLD 2 // PULL UP
-#define BUTTON_TOGGLE 3 // PULL UP
-#define LED_FLOW_ON_PIN 4
-#define WATER_PUMP_PIN 5 // Relay. Send PWM. 
+#define BUTTON_TOGGLE 2 // PULL UP
+#define LED_FLOW_ON_PIN 3
+#define WATER_PUMP_PIN 4 // Relay. Send PWM. 
 
 #define DEBOUNCE_WATER_PUMP_BUTTON_TIME_MS 40
 #define FLOW_RATE 50 // 255: full power. 50: 20% aprox.
@@ -49,7 +48,6 @@ static void stopFlow();
 
 void waterPumpInit(int dt)
 {
-    pinMode(BUTTON_HOLD, INPUT_PULLUP);
     pinMode(BUTTON_TOGGLE, INPUT_PULLUP);
     pinMode(LED_FLOW_ON_PIN, OUTPUT);
     pinMode(WATER_PUMP_PIN, OUTPUT);

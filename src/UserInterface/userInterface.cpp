@@ -1,6 +1,7 @@
 //=====[Libraries]=============================================================
 
 #include "userInterface.h"
+#include "..\Keyboard\keyboard.h"
 #include "..\Motor\motor.h"
 #include "..\WaterPump\waterPump.h"
 
@@ -34,10 +35,16 @@ static int timeIncrement_ms;
 //=====[Declarations (prototypes) of private functions]========================
 
 /**
+ * @brief Updates the keyboard and released key.
+ * 
+ */
+static void userInterfaceKeyboardUpdate();
+
+/**
  * @brief Initialices the display.
  * 
  */
-static void userInterfaceDisplayInit(int dt);
+static void userInterfaceDisplayInit();
 
 /**
  * @brief Updates the display.
@@ -109,21 +116,29 @@ static void passwordRequiredScreenUpdate();
 void userInterfaceInit(int dt)
 {
     screenStatus = MAIN_SCREEN;
-    userInterfaceDisplayInit(dt);
+    keyboardInit(dt);
+    userInterfaceDisplayInit();
+    timeIncrement_ms = dt;
 }
 
 void userInterfaceUpdate()
 {
     userInterfaceDisplayUpdate();
+    userInterfaceKeyboardUpdate();
 }
 
 //=====[Implementations of private functions]==================================
 
-static void userInterfaceDisplayInit(int dt)
+static void userInterfaceKeyboardUpdate()
 {
-    // #TODO: Adjust display style.
-    timeIncrement_ms = dt;
+    char keyReleased = keyboardUpdate();
+    if(keyReleased != '\0') {
+        Serial.print("Key Released: "+keyReleased);
+    }
+}
 
+static void userInterfaceDisplayInit()
+{
     lcd.begin(20,4);
     lcd.backlight();
 }
