@@ -52,6 +52,7 @@ static void userInterfaceDisplayUpdate();
  * WATER NOT FLOWING
  * TRAY STANDING STILL
  * POSITION X  VOL: 98%
+ * 
  */
 static void mainScreenUpdate();
 
@@ -62,6 +63,11 @@ static void mainScreenUpdate();
  * PLEASE ENTER NEW    
  * DATE AND TIME:      
  * __:__:__  __/__/____
+ * 
+ * DATE AND TIME CONFIG
+ * NEW  DATE  AND  TIME
+ *        SAVED!       
+ * 15:21:00  25/05/2024
  * 
  */
 static void dateAndTimeConfigScreenUpdate();
@@ -74,6 +80,11 @@ static void dateAndTimeConfigScreenUpdate();
  *     NEW PASSWORD    
  * -------______-------
  * 
+ *   PASSWORD  CONFIG  
+ *   PASSWORD UPDATED  
+ *       CORRECTLY     
+ * -------XXXXXX-------
+ * 
  */
 static void passwordConfigScreenUpdate();
 
@@ -83,6 +94,11 @@ static void passwordConfigScreenUpdate();
  * THIS  CONFIGURATION 
  * IS PROTECTED, PLEASE
  * ENTER YOUR PASSWORD:
+ * -------______-------
+ * 
+ *  INCORRECT PASSWORD 
+ *   PLEASE TRY AGAIN
+ *  *1 FAILED ATTEMPT* 
  * -------______-------
  * 
  */
@@ -243,6 +259,20 @@ static void passwordRequiredScreenUpdate()
 
     lcd.setCursor(0,2);
     lcd.print("ENTER YOUR PASSWORD:");
+
+    lcd.setCursor(0,3);
+    lcd.print("-------      -------");
+
+    delay(2000);
+
+    lcd.setCursor(0,0);
+    lcd.print(" INCORRECT PASSWORD ");
+
+    lcd.setCursor(0,1);
+    lcd.print("  PLEASE TRY AGAIN  ");
+
+    lcd.setCursor(0,2);
+    lcd.print(" *1 FAILED ATTEMPT* ");
 
     lcd.setCursor(0,3);
     lcd.print("-------      -------");
