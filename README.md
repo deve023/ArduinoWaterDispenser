@@ -1,6 +1,8 @@
 # ArduinoWaterDispenser
 ArduinoWaterDispenser for Arduino Nano.
 
+Readme still in the works!
+
 Arduino pins:
 
   D2 - Button:  Toggle water flow.
