@@ -10,7 +10,7 @@
 
 //=====[Declaration of private defines]========================================
 
-#define DISPLAY_REFRESH_TIME_MS 1000
+#define DISPLAY_REFRESH_TIME_MS 500
 #define I2C_ADDR 0x27 // Check with I2C Scanner
 #define I2C_SDA_PIN 18 // A4 pin
 #define I2C_SCL_PIN 19 // A5 pin
@@ -58,18 +58,6 @@ static void userInterfaceDisplayInit(int dt)
 
     lcd.begin(20,4);
     lcd.backlight();
-
-    lcd.setCursor(0,1);
-    lcd.print("Water ");
-
-    lcd.setCursor(0,2);
-    lcd.print("Tray ");
-
-    // Date & Time
-    lcd.setCursor(0,0);
-    lcd.print("20:55");
-    lcd.setCursor(12,0);
-    lcd.print("01/05/23");
 }
 
 static void userInterfaceDisplayUpdate()
@@ -79,19 +67,19 @@ static void userInterfaceDisplayUpdate()
     if(accumulatedDisplayTime >= DISPLAY_REFRESH_TIME_MS) {
         accumulatedDisplayTime = 0;
 
-        lcd.setCursor(6,1);
+        lcd.setCursor(0,1);
         if(isWaterFlowing())
-            lcd.print("flowing.");
+            lcd.print("Water flowing.    ");
         else
-            lcd.print("not flowing.");
+            lcd.print("Water not flowing.");
         
-        lcd.setCursor(5,2);
+        lcd.setCursor(0,2);
         if(isTrayInPlace())
-            lcd.print("standing still.");
+            lcd.print("Tray standing still.");
         else if (isTrayMovingUp())
-            lcd.print("moving up.");
+            lcd.print("Tray moving up.     ");
         else if(isTrayMovingDown())
-            lcd.print("moving down.");
+            lcd.print("Tray moving down.   ");
 
         /*
         * #TODO:
@@ -99,14 +87,23 @@ static void userInterfaceDisplayUpdate()
         * Only update if tray standing still. 
         * Put X if the position is not recorded.
         */
-        lcd.setCursor(0,3);
-        lcd.print("Position X");
+       if(isTrayInPlace()) {
+            lcd.setCursor(0,3);
+            lcd.print("Position X");
+        } else {
+            lcd.setCursor(0,3);
+            lcd.print("          ");
+        }
+
+        // #TODO: Show % of water left.
+        lcd.setCursor(12,3);
+        lcd.print("Vol: 98%");
         
         // #TODO: Date & Time - Update
         lcd.setCursor(0,0);
-        lcd.print("20:55");
+        lcd.print("18:15");
         lcd.setCursor(12,0);
-        lcd.print("01/05/23");
+        lcd.print("03/05/23");
 
     } else {
         accumulatedDisplayTime += timeIncrement_ms;
