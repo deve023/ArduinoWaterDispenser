@@ -11,7 +11,7 @@
 //=====[Declaration of private defines]========================================
 
 #define DISPLAY_REFRESH_TIME_MS 1000
-#define I2C_ADDR 0x3F // Check with I2C Scanner
+#define I2C_ADDR 0x27 // Check with I2C Scanner
 #define I2C_SDA_PIN 18 // A4 pin
 #define I2C_SCL_PIN 19 // A5 pin
 
@@ -59,16 +59,16 @@ static void userInterfaceDisplayInit(int dt)
     lcd.begin(20,4);
     lcd.backlight();
 
-    lcd.setCursor(0,0);
+    lcd.setCursor(0,1);
     lcd.print("Water ");
 
-    lcd.setCursor(0,1);
+    lcd.setCursor(0,2);
     lcd.print("Tray ");
 
     // Date & Time
-    lcd.setCursor(3,0);
+    lcd.setCursor(0,0);
     lcd.print("20:55");
-    lcd.setCursor(3,12);
+    lcd.setCursor(12,0);
     lcd.print("01/05/23");
 }
 
@@ -79,13 +79,13 @@ static void userInterfaceDisplayUpdate()
     if(accumulatedDisplayTime >= DISPLAY_REFRESH_TIME_MS) {
         accumulatedDisplayTime = 0;
 
-        lcd.setCursor(6,0);
+        lcd.setCursor(6,1);
         if(isWaterFlowing())
             lcd.print("flowing.");
         else
             lcd.print("not flowing.");
         
-        lcd.setCursor(5,1);
+        lcd.setCursor(5,2);
         if(isTrayInPlace())
             lcd.print("standing still.");
         else if (isTrayMovingUp())
@@ -99,13 +99,13 @@ static void userInterfaceDisplayUpdate()
         * Only update if tray standing still. 
         * Put X if the position is not recorded.
         */
-        lcd.setCursor(0,2);
+        lcd.setCursor(0,3);
         lcd.print("Position X");
         
         // #TODO: Date & Time - Update
-        lcd.setCursor(3,0);
+        lcd.setCursor(0,0);
         lcd.print("20:55");
-        lcd.setCursor(3,12);
+        lcd.setCursor(12,0);
         lcd.print("01/05/23");
 
     } else {
