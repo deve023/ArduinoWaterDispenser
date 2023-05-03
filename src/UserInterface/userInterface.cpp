@@ -10,7 +10,7 @@
 
 //=====[Declaration of private defines]========================================
 
-#define DISPLAY_REFRESH_TIME_MS 500
+#define DISPLAY_REFRESH_TIME_MS 100
 #define I2C_ADDR 0x27 // Check with I2C Scanner
 #define I2C_SDA_PIN 18 // A4 pin
 #define I2C_SCL_PIN 19 // A5 pin
