@@ -19,8 +19,7 @@
 
 typedef enum {
     FLOWING, 
-    NOT_FLOWING, 
-    DEBOUNCE_HOLD_BUTTON, 
+    NOT_FLOWING,
     DEBOUNCE_TOGGLE_BUTTON
 } WaterPumpStatus_t;
 
@@ -61,10 +60,9 @@ void waterPumpInit(int dt)
 bool waterPumpUpdate(bool flowBlock)
 {
     // #TODO: Implement.
-    static int accumulatedHoldButtonTime = 0;
     static int accumulatedToggleButtonTime = 0;
 
-    static bool holdButtonTentativePressed = false;
+    static bool toggleButtonPressed = false;
     static bool toggleButtonTentativePressed = false;
 
     switch(waterPumpStatus) {
@@ -74,15 +72,60 @@ bool waterPumpUpdate(bool flowBlock)
             else {
                 if(!waterFlowing)
                     startFlow();
+                if(!toggleButtonPressed) {
+                    if(digitalRead(BUTTON_TOGGLE) == PRESSED) {
+                        toggleButtonTentativePressed = true;
+                        waterPumpStatus = DEBOUNCE_TOGGLE_BUTTON;
+                    }
+                } else {
+                    if(digitalRead(BUTTON_TOGGLE) == NOT_PRESSED) {
+                        toggleButtonTentativePressed = false;
+                        waterPumpStatus = DEBOUNCE_TOGGLE_BUTTON;
+                    }                    
+                }
             }
             break;
         case NOT_FLOWING:
             if(waterFlowing)
                 stopFlow();
-            break;
-        case DEBOUNCE_HOLD_BUTTON:
+            if(!toggleButtonPressed) {
+                if(digitalRead(BUTTON_TOGGLE) == PRESSED) {
+                    toggleButtonTentativePressed = true;
+                    waterPumpStatus = DEBOUNCE_TOGGLE_BUTTON;
+                }
+            } else {
+                    if(digitalRead(BUTTON_TOGGLE) == NOT_PRESSED) {
+                        toggleButtonTentativePressed = false;
+                        waterPumpStatus = DEBOUNCE_TOGGLE_BUTTON;
+                    }                    
+                }
             break;
         case DEBOUNCE_TOGGLE_BUTTON:
+            if(accumulatedToggleButtonTime >= DEBOUNCE_WATER_PUMP_BUTTON_TIME_MS) {
+                if(toggleButtonTentativePressed) {
+                    if(digitalRead(BUTTON_TOGGLE) == PRESSED) {
+                        toggleButtonPressed = true;
+                        if(waterFlowing)
+                            waterPumpStatus = NOT_FLOWING;
+                        else
+                            waterPumpStatus = FLOWING;
+                    } else {
+                        if(waterFlowing)
+                            waterPumpStatus = FLOWING;
+                        else
+                            waterPumpStatus = NOT_FLOWING;
+                    }
+                } else {
+                    if(digitalRead(BUTTON_TOGGLE) == NOT_PRESSED)
+                        toggleButtonPressed = false;
+                    if(waterFlowing)
+                        waterPumpStatus = FLOWING;
+                    else
+                        waterPumpStatus = NOT_FLOWING;                    
+                }
+            } else {
+                accumulatedToggleButtonTime += timeIncrement_ms;
+            }
             break;
         default:
             waterPumpStatus = NOT_FLOWING;
@@ -103,7 +146,6 @@ static void startFlow()
     waterFlowing = true;
     analogWrite(WATER_PUMP_PIN, FLOW_RATE);
     digitalWrite(LED_FLOW_ON_PIN, HIGH);
-    Serial.println("Water flow activated."); // Debug
 }
 
 static void stopFlow()

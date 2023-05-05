@@ -124,7 +124,7 @@ void userInterfaceInit(int dt)
 void userInterfaceUpdate()
 {
     userInterfaceDisplayUpdate();
-    userInterfaceKeyboardUpdate();
+    //userInterfaceKeyboardUpdate();
 }
 
 //=====[Implementations of private functions]==================================

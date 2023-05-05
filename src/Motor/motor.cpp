@@ -148,9 +148,7 @@ bool motorUpdate()
             buttonDownTentativePressed = false;
             buttonDownTentativePressed = false;
     }
-
-    Serial.println(statusInfo);
-
+    
     if( motorStatus == MOTOR_GOING_UP || motorStatus == MOTOR_GOING_DOWN)
         return true;
     return false;
