@@ -11,9 +11,9 @@
 #define BUTTON_UP 5 // PULL UP
 #define BUTTON_DOWN 6 // PULL UP
 #define DRIVER_ENABLE_PIN 7
-#define DRIVER_ANOTHER_PIN 8
 #define DEBOUNCE_MOTOR_BUTTON_TIME_MS 40
 #define MOTOR_RUNNING_SPEED 150
+#define MOTOR_LED_PIN 8
 
 //=====[Declaration of private data types]=====================================
 
@@ -29,7 +29,6 @@ typedef enum {
 
 static MotorStatus_t motorStatus;
 static int timeIncrement_ms;
-static char statusInfo[28] = "Motor Status: "; // Insert status in position: 14
 
 //=====[Declarations (prototypes) of private functions]========================
 
@@ -118,7 +117,6 @@ bool motorUpdate()
             } else {
                 accumulatedDebounceMotorButtonTime += timeIncrement_ms;
             }
-            strcpy(statusInfo+14, "DEBOUNCE_UP"); // Debug
             break;
         case MOTOR_DEBOUNCE_DOWN:
             if(accumulatedDebounceMotorButtonTime >= DEBOUNCE_MOTOR_BUTTON_TIME_MS) {
@@ -141,7 +139,6 @@ bool motorUpdate()
             } else {
                 accumulatedDebounceMotorButtonTime += timeIncrement_ms;
             }
-            strcpy(statusInfo+14, "DEBOUNCE_DOWN"); // Debug
             break;
         default:
             motorStatus = MOTOR_IN_PLACE;
@@ -176,18 +173,17 @@ bool isTrayMovingDown()
 static void goUp()
 {
     // #TODO: Update output pins so motor goes up.
-    strcpy(statusInfo+14, "GOING_UP"); // Debug
+    digitalWrite(MOTOR_LED_PIN, HIGH);
 }
 
 static void goDown()
 {
     // #TODO: Update output pins so motor goes down.
-    strcpy(statusInfo+14, "GOING_DOWN"); // Debug
+    digitalWrite(MOTOR_LED_PIN, HIGH);
 }
 
 static void standStill()
 {
-
     // #TODO: Update output pins so motor does not move.
-    strcpy(statusInfo+14, "IN_PLACE"); // Debug
+    digitalWrite(MOTOR_LED_PIN, LOW);
 }
