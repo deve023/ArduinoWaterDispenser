@@ -17,7 +17,7 @@ Arduino pins:
   
   D7 - Motor:   Driver enable
   
-  D8 - Motor:   Driver second pin?
+  D8 - LED:   Tray moving LED
   
   D9-A2 - Keyboard pins
   
