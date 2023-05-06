@@ -114,7 +114,7 @@ static char keyboardScan()
     };
 
     for(row = 0; row < KEYBOARD_MAX_ROWS; row++) {
-        for(i = 0; KEYBOARD_MAX_ROWS; i++)
+        for(i = 0; i < KEYBOARD_MAX_ROWS; i++)
             digitalWrite(keyboardRowPins[i], HIGH);
         digitalWrite(keyboardRowPins[row], LOW);
 
