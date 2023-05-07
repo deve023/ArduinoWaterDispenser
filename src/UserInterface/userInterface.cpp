@@ -2,7 +2,7 @@
 
 #include "userInterface.h"
 #include "..\Keyboard\keyboard.h"
-#include "..\Motor\motor.h"
+#include "..\Tray\tray.h"
 #include "..\WaterPump\waterPump.h"
 
 #include <Arduino.h>
@@ -105,7 +105,7 @@ static void passwordConfigScreenUpdate();
  * 
  *  INCORRECT PASSWORD 
  *   PLEASE TRY AGAIN
- *  *1 FAILED ATTEMPT* 
+ *  *X FAILED ATTEMPT* 
  * -------______-------
  * 
  */

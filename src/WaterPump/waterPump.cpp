@@ -10,10 +10,12 @@
 #define NOT_PRESSED HIGH // PULL UP
 #define BUTTON_TOGGLE 2 // PULL UP
 #define LED_FLOW_ON_PIN 3
-#define WATER_PUMP_PIN 4 // Relay. Send PWM. 
+#define WATER_PUMP_PIN 4 // Send PWM. 
 
 #define DEBOUNCE_WATER_PUMP_BUTTON_TIME_MS 40
+
 #define FLOW_RATE 50 // 255: full power. 50: 20% aprox.
+#define NO_FLOW 0
 
 //=====[Declaration of private data types]=====================================
 
@@ -59,7 +61,6 @@ void waterPumpInit(int dt)
 
 bool waterPumpUpdate(bool flowBlock)
 {
-    // #TODO: Implement.
     static int accumulatedToggleButtonTime = 0;
 
     static bool toggleButtonPressed = false;
@@ -151,6 +152,6 @@ static void startFlow()
 static void stopFlow()
 {
     waterFlowing = false;
-    analogWrite(WATER_PUMP_PIN, 0);
+    analogWrite(WATER_PUMP_PIN, NO_FLOW);
     digitalWrite(LED_FLOW_ON_PIN, LOW);
 }

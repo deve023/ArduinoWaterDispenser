@@ -10,7 +10,7 @@
 
 //=====[Libraries]=============================================================
 
-#include ".\src\Motor\motor.h"
+#include ".\src\Tray\tray.h"
 #include ".\src\WaterPump\waterPump.h"
 #include ".\src\UserInterface\userInterface.h"
 
@@ -29,7 +29,7 @@ bool blockWaterFlow = false; ///< Boolean to indicate if the flow of water shoul
  * 
  */
 void setup() {
-    motorInit(MAINLOOP_TIME_INCREMENT_MS);
+    trayInit(MAINLOOP_TIME_INCREMENT_MS);
     waterPumpInit(MAINLOOP_TIME_INCREMENT_MS);
     userInterfaceInit(MAINLOOP_TIME_INCREMENT_MS);
 
@@ -43,7 +43,7 @@ void setup() {
  * 
  */
 void loop() {
-    blockWaterFlow = motorUpdate();
+    blockWaterFlow = trayUpdate();
     waterPumpUpdate(blockWaterFlow);
     
     userInterfaceUpdate();
