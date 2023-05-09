@@ -58,7 +58,7 @@ static void userInterfaceDisplayUpdate();
  * 23:42       03/05/23
  * WATER NOT FLOWING
  * TRAY STANDING STILL
- * POSITION X  VOL: 98%
+ * POS: X  VOL: 18.7 L
  * 
  */
 static void mainScreenUpdate();
@@ -195,15 +195,15 @@ static void mainScreenUpdate()
         */
        if(isTrayInPlace()) {
             lcd.setCursor(0,3);
-            lcd.print("POSITION X  ");
+            lcd.print("POS: X  ");
         } else {
             lcd.setCursor(0,3);
             lcd.print("          ");
         }
 
         // #TODO: Show % of water left.
-        lcd.setCursor(12,3);
-        lcd.print("VOL: 98%");
+        lcd.setCursor(8,3);
+        lcd.print("VOL: 17.8 L ");
         
         // #TODO: Date & Time - Update
         lcd.setCursor(0,0);

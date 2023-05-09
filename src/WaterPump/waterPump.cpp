@@ -145,13 +145,13 @@ bool isWaterFlowing()
 static void startFlow()
 {
     waterFlowing = true;
-    analogWrite(WATER_PUMP_PIN, FLOW_RATE);
+    digitalWrite(WATER_PUMP_PIN, HIGH);
     digitalWrite(LED_FLOW_ON_PIN, HIGH);
 }
 
 static void stopFlow()
 {
     waterFlowing = false;
-    analogWrite(WATER_PUMP_PIN, NO_FLOW);
+    digitalWrite(WATER_PUMP_PIN, LOW);
     digitalWrite(LED_FLOW_ON_PIN, LOW);
 }
